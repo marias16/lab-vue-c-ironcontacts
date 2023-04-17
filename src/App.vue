@@ -1,4 +1,5 @@
 <template>
+  <button @click="addRandom">Add new random contact</button>
   <table>
     <tr>
       <th>Picture</th>
@@ -15,13 +16,29 @@
       <td><p v-if="contact.wonEmmy">🏆</p></td>
     </tr>
   </table>
+  <button @click="addRandom">Add new random contact</button>
 </template>
 
 <script setup>
 import ContactList from './contacts.json'
 import { ref } from 'vue'
-const contacts = ref(ContactList.slice(5, 10))
+
+//iteration 1
+const contacts = ref(ContactList.slice(0, 5))
 console.log(contacts)
+
+//iteration 3
+const newContactList = ContactList.slice(5, ContactList.length)
+function addRandom () {
+  const randomNumber = Math.floor(Math.random() * (newContactList.length - 1))
+  const randomContact = newContactList[randomNumber]
+  if (contacts.value.includes(randomContact)) {
+    return addRandom()
+  }
+
+  contacts.value.push(randomContact)
+}
+
 </script>
 
 <style scoped>
