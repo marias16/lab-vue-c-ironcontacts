@@ -28,15 +28,15 @@ const contacts = ref(ContactList.slice(0, 5))
 console.log(contacts)
 
 //iteration 3
-const newContactList = ContactList.slice(5, ContactList.length)
+let newContactList = ContactList.slice(5, ContactList.length)
 function addRandom () {
+  if(!newContactList.length) {
+    return null
+  }
   const randomNumber = Math.floor(Math.random() * (newContactList.length - 1))
   const randomContact = newContactList[randomNumber]
-  if (contacts.value.includes(randomContact)) {
-    return addRandom()
-  }
-
   contacts.value.push(randomContact)
+  newContactList = newContactList.filter(contact => contact !== randomContact)
 }
 
 </script>
