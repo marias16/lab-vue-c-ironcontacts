@@ -1,5 +1,7 @@
 <template>
   <button @click="addRandom">Add new random contact</button>
+  <button @click="sortPopularity">Sort by popularity</button>
+  <button @click="sortName">Sort by name</button>
   <table>
     <tr>
       <th>Picture</th>
@@ -17,6 +19,8 @@
     </tr>
   </table>
   <button @click="addRandom">Add new random contact</button>
+  <button @click="sortPopularity">Sort by popularity</button>
+  <button @click="sortName">Sort by name</button>
 </template>
 
 <script setup>
@@ -25,7 +29,6 @@ import { ref } from 'vue'
 
 //iteration 1
 const contacts = ref(ContactList.slice(0, 5))
-console.log(contacts)
 
 //iteration 3
 let newContactList = ContactList.slice(5, ContactList.length)
@@ -37,6 +40,15 @@ function addRandom () {
   const randomContact = newContactList[randomNumber]
   contacts.value.push(randomContact)
   newContactList = newContactList.filter(contact => contact !== randomContact)
+}
+
+//iteration 4
+function sortPopularity() {
+  contacts.value.sort((a, b) => b.popularity -a.popularity)
+}
+
+function sortName() {
+  contacts.value.sort((a, b) => a.name.localeCompare(b.name))
 }
 
 </script>
