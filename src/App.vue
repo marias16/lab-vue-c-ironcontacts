@@ -16,6 +16,7 @@
       <td>{{ contact.popularity }}</td>
       <td><p v-if="contact.wonOscar">🏆</p></td>
       <td><p v-if="contact.wonEmmy">🏆</p></td>
+      <td><button @click="deleteRow(contact.id)">Delete contact</button></td>
     </tr>
   </table>
   <button @click="addRandom">Add new random contact</button>
@@ -51,6 +52,13 @@ function sortName() {
   contacts.value.sort((a, b) => a.name.localeCompare(b.name))
 }
 
+//iteration 5 
+function deleteRow(contactId) {
+  if(contacts.value.length === 1) {
+    newContactList = ContactList;
+  }
+  contacts.value = contacts.value.filter(contact => contact.id !== contactId)
+}
 </script>
 
 <style scoped>
